@@ -111,6 +111,8 @@ const adminStore = useAdminStore()
 
 const { stats, loading, error, fetchDashboardStats } = adminStore
 
+const fetchStats = fetchDashboardStats
+
 onMounted(() => {
   fetchStats()
 })
