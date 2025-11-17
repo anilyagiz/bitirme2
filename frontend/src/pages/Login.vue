@@ -50,7 +50,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
+import { ref, reactive, onMounted, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
 import TextInput from '../components/ui/TextInput.vue'
@@ -58,6 +58,28 @@ import LargeButton from '../components/ui/LargeButton.vue'
 
 const router = useRouter()
 const authStore = useAuthStore()
+
+// Redirect if already authenticated
+const checkAndRedirect = () => {
+  if (authStore.isAuthenticated && authStore.user) {
+    if (authStore.user.role === 'admin') {
+      router.replace('/admin/dashboard')
+    } else if (authStore.user.role === 'staff') {
+      router.replace('/staff/tasks')
+    } else if (authStore.user.role === 'supervisor') {
+      router.replace('/supervisor/reviews')
+    }
+  }
+}
+
+onMounted(() => {
+  checkAndRedirect()
+})
+
+// Watch for authentication changes
+watch(() => authStore.isAuthenticated, () => {
+  checkAndRedirect()
+})
 
 const form = reactive({
   email: '',

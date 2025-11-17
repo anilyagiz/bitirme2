@@ -43,13 +43,14 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import { useAuthStore } from '../stores/auth'
 import { useRouter } from 'vue-router'
 
 const authStore = useAuthStore()
 const router = useRouter()
 
-const user = authStore.user
+const user = computed(() => authStore.user)
 
 const logout = () => {
   authStore.logout()
