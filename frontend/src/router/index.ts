@@ -41,6 +41,30 @@ const router = createRouter({
       meta: { requiresAuth: true, role: 'admin' }
     },
     {
+      path: '/admin/users',
+      name: 'AdminUsers',
+      component: () => import('../pages/admin/Users.vue'),
+      meta: { requiresAuth: true, role: 'admin' }
+    },
+    {
+      path: '/admin/buildings',
+      name: 'AdminBuildings',
+      component: () => import('../pages/admin/Buildings.vue'),
+      meta: { requiresAuth: true, role: 'admin' }
+    },
+    {
+      path: '/admin/departments',
+      name: 'AdminDepartments',
+      component: () => import('../pages/admin/Departments.vue'),
+      meta: { requiresAuth: true, role: 'admin' }
+    },
+    {
+      path: '/admin/periods',
+      name: 'AdminPeriods',
+      component: () => import('../pages/admin/Periods.vue'),
+      meta: { requiresAuth: true, role: 'admin' }
+    },
+    {
       path: '/',
       redirect: '/login'
     }
