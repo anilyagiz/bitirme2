@@ -65,6 +65,18 @@ const router = createRouter({
       meta: { requiresAuth: true, role: 'admin' }
     },
     {
+      path: '/admin/locations',
+      name: 'AdminLocations',
+      component: () => import('../pages/admin/Locations.vue'),
+      meta: { requiresAuth: true, role: 'admin' }
+    },
+    {
+      path: '/admin/assignments',
+      name: 'AdminAssignments',
+      component: () => import('../pages/admin/Assignments.vue'),
+      meta: { requiresAuth: true, role: 'admin' }
+    },
+    {
       path: '/',
       redirect: '/login'
     }
