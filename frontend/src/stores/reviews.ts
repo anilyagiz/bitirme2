@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import axios from 'axios'
+import axios from '../config/api'
 import type { Assignment, PaginatedResponse } from './tasks'
 
 export const useReviewStore = defineStore('reviews', () => {
