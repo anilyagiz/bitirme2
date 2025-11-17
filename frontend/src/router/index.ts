@@ -85,7 +85,21 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const authStore = useAuthStore()
-  
+
+  // If user is authenticated and trying to access login, redirect to their dashboard
+  if (to.path === '/login' && authStore.isAuthenticated) {
+    if (authStore.user?.role === 'admin') {
+      next('/admin/dashboard')
+    } else if (authStore.user?.role === 'staff') {
+      next('/staff/tasks')
+    } else if (authStore.user?.role === 'supervisor') {
+      next('/supervisor/reviews')
+    } else {
+      next()
+    }
+    return
+  }
+
   if (to.meta.requiresAuth && !authStore.isAuthenticated) {
     next('/login')
   } else if (to.meta.role && authStore.user?.role !== to.meta.role) {
