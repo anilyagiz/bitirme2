@@ -1,6 +1,7 @@
 from pydantic import BaseModel, validator
 from typing import Optional, List
 from datetime import datetime, date
+from uuid import UUID
 from app.db.models.period import PeriodStatus
 
 class PeriodBase(BaseModel):
@@ -18,7 +19,7 @@ class PeriodUpdate(BaseModel):
     end_date: Optional[date] = None
 
 class PeriodResponse(PeriodBase):
-    id: str
+    id: UUID
     created_at: datetime
     updated_at: datetime
     

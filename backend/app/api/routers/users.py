@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from typing import List, Optional
+from uuid import UUID
 from app.db.base import get_db
 from app.db.models.user import User
 from app.schemas.user import UserCreate, UserUpdate, UserResponse
@@ -67,7 +68,7 @@ async def create_user(
 
 @router.get("/{user_id}", response_model=UserResponse)
 async def get_user(
-    user_id: str,
+    user_id: UUID,
     db: Session = Depends(get_db),
     current_user: User = Depends(require_admin)
 ):
@@ -81,7 +82,7 @@ async def get_user(
 
 @router.put("/{user_id}", response_model=UserResponse)
 async def update_user(
-    user_id: str,
+    user_id: UUID,
     user_data: UserUpdate,
     db: Session = Depends(get_db),
     current_user: User = Depends(require_admin)
@@ -104,7 +105,7 @@ async def update_user(
 
 @router.delete("/{user_id}")
 async def delete_user(
-    user_id: str,
+    user_id: UUID,
     db: Session = Depends(get_db),
     current_user: User = Depends(require_admin)
 ):

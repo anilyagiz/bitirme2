@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from typing import List, Optional
+from uuid import UUID
 from app.db.base import get_db
 from app.db.models.user import User
 from app.db.models.location import Location
@@ -76,7 +77,7 @@ async def create_location(
 
 @router.get("/{location_id}", response_model=LocationResponse)
 async def get_location(
-    location_id: str,
+    location_id: UUID,
     db: Session = Depends(get_db),
     current_user: User = Depends(require_admin)
 ):
@@ -90,7 +91,7 @@ async def get_location(
 
 @router.put("/{location_id}", response_model=LocationResponse)
 async def update_location(
-    location_id: str,
+    location_id: UUID,
     location_data: LocationUpdate,
     db: Session = Depends(get_db),
     current_user: User = Depends(require_admin)
@@ -113,7 +114,7 @@ async def update_location(
 
 @router.delete("/{location_id}")
 async def delete_location(
-    location_id: str,
+    location_id: UUID,
     db: Session = Depends(get_db),
     current_user: User = Depends(require_admin)
 ):
