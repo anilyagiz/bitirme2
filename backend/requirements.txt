@@ -1,13 +1,34 @@
+# Core Framework
 fastapi==0.104.1
 uvicorn[standard]==0.24.0
+
+# Database
 sqlalchemy==2.0.23
 alembic==1.12.1
 psycopg2-binary==2.9.9
+
+# Authentication & Security
 bcrypt==4.1.2
 python-jose[cryptography]==3.3.0
 python-multipart==0.0.6
+
+# Validation
 pydantic==2.5.0
 pydantic-settings==2.1.0
-email-validator==2.1.0
-python-dotenv==1.0.0
 email-validator==2.3.0
+
+# Environment
+python-dotenv==1.0.0
+
+# Rate Limiting
+slowapi==0.1.9
+
+# Logging
+python-json-logger==2.0.7
+
+# Caching (Optional - Redis)
+redis==5.0.1
+hiredis==2.2.3
+
+# HTTP Client (for health checks)
+httpx==0.25.2
