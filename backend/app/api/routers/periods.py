@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from typing import List, Optional
+from uuid import UUID
 from app.db.base import get_db
 from app.db.models.user import User
 from app.db.models.period import Period, PeriodStatus
@@ -53,7 +54,7 @@ async def create_period(
 
 @router.get("/{period_id}", response_model=PeriodResponse)
 async def get_period(
-    period_id: str,
+    period_id: UUID,
     db: Session = Depends(get_db),
     current_user: User = Depends(require_admin)
 ):
@@ -67,7 +68,7 @@ async def get_period(
 
 @router.put("/{period_id}", response_model=PeriodResponse)
 async def update_period(
-    period_id: str,
+    period_id: UUID,
     period_data: PeriodUpdate,
     db: Session = Depends(get_db),
     current_user: User = Depends(require_admin)
@@ -90,7 +91,7 @@ async def update_period(
 
 @router.put("/{period_id}/activate")
 async def activate_period(
-    period_id: str,
+    period_id: UUID,
     db: Session = Depends(get_db),
     current_user: User = Depends(require_admin)
 ):
@@ -108,7 +109,7 @@ async def activate_period(
 
 @router.put("/{period_id}/complete")
 async def complete_period(
-    period_id: str,
+    period_id: UUID,
     db: Session = Depends(get_db),
     current_user: User = Depends(require_admin)
 ):
@@ -126,7 +127,7 @@ async def complete_period(
 
 @router.delete("/{period_id}")
 async def delete_period(
-    period_id: str,
+    period_id: UUID,
     db: Session = Depends(get_db),
     current_user: User = Depends(require_admin)
 ):

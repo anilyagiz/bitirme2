@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from typing import List, Optional
+from uuid import UUID
 from app.db.base import get_db
 from app.db.models.user import User
 from app.db.models.department import Department
@@ -54,7 +55,7 @@ async def create_department(
 
 @router.get("/{department_id}", response_model=DepartmentResponse)
 async def get_department(
-    department_id: str,
+    department_id: UUID,
     db: Session = Depends(get_db),
     current_user: User = Depends(require_admin)
 ):
@@ -68,7 +69,7 @@ async def get_department(
 
 @router.put("/{department_id}", response_model=DepartmentResponse)
 async def update_department(
-    department_id: str,
+    department_id: UUID,
     department_data: DepartmentUpdate,
     db: Session = Depends(get_db),
     current_user: User = Depends(require_admin)
@@ -91,7 +92,7 @@ async def update_department(
 
 @router.delete("/{department_id}")
 async def delete_department(
-    department_id: str,
+    department_id: UUID,
     db: Session = Depends(get_db),
     current_user: User = Depends(require_admin)
 ):

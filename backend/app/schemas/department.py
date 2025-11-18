@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from typing import Optional, List
 from datetime import datetime
+from uuid import UUID
 
 class DepartmentBase(BaseModel):
     name: str
@@ -16,7 +17,7 @@ class DepartmentUpdate(BaseModel):
     is_active: Optional[bool] = None
 
 class DepartmentResponse(DepartmentBase):
-    id: str
+    id: UUID
     created_at: datetime
     updated_at: datetime
     

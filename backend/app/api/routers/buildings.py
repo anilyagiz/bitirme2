@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from typing import List, Optional
+from uuid import UUID
 from app.db.base import get_db
 from app.db.models.user import User
 from app.db.models.building import Building
@@ -55,7 +56,7 @@ async def create_building(
 
 @router.get("/{building_id}", response_model=BuildingResponse)
 async def get_building(
-    building_id: str,
+    building_id: UUID,
     db: Session = Depends(get_db),
     current_user: User = Depends(require_admin)
 ):
@@ -69,7 +70,7 @@ async def get_building(
 
 @router.put("/{building_id}", response_model=BuildingResponse)
 async def update_building(
-    building_id: str,
+    building_id: UUID,
     building_data: BuildingUpdate,
     db: Session = Depends(get_db),
     current_user: User = Depends(require_admin)
@@ -92,7 +93,7 @@ async def update_building(
 
 @router.delete("/{building_id}")
 async def delete_building(
-    building_id: str,
+    building_id: UUID,
     db: Session = Depends(get_db),
     current_user: User = Depends(require_admin)
 ):

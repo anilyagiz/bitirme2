@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from typing import List, Optional
+from uuid import UUID
 from datetime import datetime
 from app.db.base import get_db
 from app.db.models.user import User, UserRole
@@ -103,7 +104,7 @@ async def get_assignments(
 
 @router.get("/{assignment_id}", response_model=AssignmentResponse)
 async def get_assignment(
-    assignment_id: str,
+    assignment_id: UUID,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user)
 ):
@@ -132,7 +133,7 @@ async def get_assignment(
 
 @router.put("/{assignment_id}", response_model=AssignmentResponse)
 async def update_assignment(
-    assignment_id: str,
+    assignment_id: UUID,
     assignment_data: AssignmentUpdate,
     db: Session = Depends(get_db),
     current_user: User = Depends(require_admin)
@@ -155,7 +156,7 @@ async def update_assignment(
 
 @router.delete("/{assignment_id}")
 async def delete_assignment(
-    assignment_id: str,
+    assignment_id: UUID,
     db: Session = Depends(get_db),
     current_user: User = Depends(require_admin)
 ):
@@ -204,7 +205,7 @@ async def get_my_assignments(
 
 @router.post("/my/assignments/{assignment_id}/clean")
 async def clean_assignment(
-    assignment_id: str,
+    assignment_id: UUID,
     request: AssignmentCleanRequest,
     db: Session = Depends(get_db),
     current_user: User = Depends(require_staff)
@@ -262,7 +263,7 @@ async def get_my_reviews(
 
 @router.post("/my/reviews/{assignment_id}/approve")
 async def approve_assignment(
-    assignment_id: str,
+    assignment_id: UUID,
     request: AssignmentApproveRequest,
     db: Session = Depends(get_db),
     current_user: User = Depends(require_supervisor)
@@ -299,7 +300,7 @@ async def approve_assignment(
 
 @router.post("/my/reviews/{assignment_id}/reject")
 async def reject_assignment(
-    assignment_id: str,
+    assignment_id: UUID,
     request: AssignmentRejectRequest,
     db: Session = Depends(get_db),
     current_user: User = Depends(require_supervisor)
