@@ -228,7 +228,6 @@ ehthumbs.db
 Thumbs.db
 
 # Docker
-.dockerignore
 
 # Alembic
 alembic/versions/*.py
