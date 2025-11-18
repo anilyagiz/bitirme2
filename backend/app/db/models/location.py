@@ -2,6 +2,7 @@ from sqlalchemy import Column, String, Boolean, DateTime, ForeignKey, Integer, T
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
+import uuid
 import enum
 from app.db.base import Base
 
@@ -15,13 +16,13 @@ class LocationType(str, enum.Enum):
 class Location(Base):
     __tablename__ = "locations"
 
-    id = Column(String, primary_key=True, index=True)
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, index=True)
     name = Column(String, nullable=False)
     location_type = Column(Enum(LocationType), nullable=False)
     location_subtype = Column(String, nullable=True)
-    building_id = Column(String, ForeignKey("buildings.id"), nullable=False)
-    department_id = Column(String, ForeignKey("departments.id"), nullable=True)
-    parent_location_id = Column(String, ForeignKey("locations.id"), nullable=True)
+    building_id = Column(UUID(as_uuid=True), ForeignKey("buildings.id"), nullable=False)
+    department_id = Column(UUID(as_uuid=True), ForeignKey("departments.id"), nullable=True)
+    parent_location_id = Column(UUID(as_uuid=True), ForeignKey("locations.id"), nullable=True)
     is_leaf = Column(Boolean, default=True, nullable=False)
     floor_label = Column(String, nullable=True)
     area_sqm = Column(Integer, nullable=True)
