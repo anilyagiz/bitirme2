@@ -2,7 +2,7 @@ from pydantic import field_validator
 from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
-    DATABASE_URL: str = "postgres://app:app@db:5432/appdb"
+    DATABASE_URL: str = "postgresql://app:app@localhost:5432/appdb"
     JWT_SECRET: str = "change-me"
     JWT_ALGO: str = "HS256"
     JWT_EXPIRES_MIN: int = 480

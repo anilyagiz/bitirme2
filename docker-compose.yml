@@ -18,7 +18,7 @@ services:
   api:
     build: ./backend
     environment:
-      DATABASE_URL: postgres://app:app@db:5432/appdb
+      DATABASE_URL: postgresql://app:app@db:5432/appdb
       JWT_SECRET: "change-me-in-production"
       JWT_ALGO: "HS256"
       JWT_EXPIRES_MIN: 480

@@ -2,6 +2,7 @@ from sqlalchemy import Column, String, Boolean, DateTime, ForeignKey, Integer, T
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
+import uuid
 import enum
 from app.db.base import Base
 
@@ -14,9 +15,9 @@ class AssignmentStatus(str, enum.Enum):
 class Assignment(Base):
     __tablename__ = "assignments"
 
-    id = Column(String, primary_key=True, index=True)
-    location_id = Column(String, ForeignKey("locations.id"), nullable=False)
-    period_id = Column(String, ForeignKey("periods.id"), nullable=False)
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, index=True)
+    location_id = Column(UUID(as_uuid=True), ForeignKey("locations.id"), nullable=False)
+    period_id = Column(UUID(as_uuid=True), ForeignKey("periods.id"), nullable=False)
     staff_user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
     supervisor_user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
     status = Column(Enum(AssignmentStatus), default=AssignmentStatus.PENDING, nullable=False)
